@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/png" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <meta name="theme-color" content="#f14635"/>
+  <style>
+    /* Просто для примера — скроем неактивный блок */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .btntab {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .btntab label {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="title">
+        <img src="arrow.png" alt="" class="back-icon" />
+        <h1 class="text-title">Удостоверение личности</h1>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tab">
+        <div class="btntab">
+          <input type="radio" name="tab-btn" id="tab-btn-1" value="doc" checked />
+          <label for="tab-btn-1">
+            <p>Документ</p>
+          </label>
+
+          <input type="radio" name="tab-btn" id="tab-btn-2" value="req" />
+          <label for="tab-btn-2">
+            <p>Реквизиты</p>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div id="doc" class="tab-content active">
+      <div class="middle">
+        <div class="img-upload" style="height: 50vh;">
+          <div class="input-img">
+            <input type="file" name="img-upl" id="idupload" class="input-file" />
+            <label for="idupload"><span>Загрузить</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="btnfooter" id="docbtn">
+          <button id="btnftr1">
+            <img src="qr.png" alt="" />
+            Предъявить документ
+          </button>
+          <button id="btnftr2" class="share">
+            <img src="upload.png" alt="" class="img-upload" />
+            Отправить документ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="req" class="tab-content">
+      <ul class="rekvizit">
+        <li>
+          <span class="atritem">ФИО</span><br />
+          <input type="text" maxlength="28" spellcheck="false" class="rekitem" />
+          <img src="img/copy.png" alt="" />
+        </li>
+        <li>
+          <span class="atritem">ИИН</span><br />
+          <input type="text" maxlength="12" class="rekitem" />
+          <img src="img/copy.png" alt="" />
+        </li>
+        <li>
+          <span class="atritem">Дата рождения</span><br />
+          <input type="text" maxlength="10" class="rekitem" value="dasd" />
+          <img src="img/copy.png" alt="" />
+        </li>
+        <li>
+          <span class="atritem">Номер документа</span><br />
+          <input type="text" maxlength="9" class="rekitem" value="fsad" />
+          <img src="img/copy.png" alt="" />
+        </li>
+        <li>
+          <span class="atritem">Дата выдачи</span><br />
+          <input type="text" maxlength="10" class="rekitem" />
+          <img src="img/copy.png" alt="" />
+        </li>
+        <li>
+          <span class="atritem">Срок действия</span><br />
+          <span class="rekitem">25.10.2031</span>
+          <img src="img/copy.png" alt="" />
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- JavaScript для переключения -->
+  <script>
+    const radioDoc = document.getElementById("tab-btn-1");
+    const radioReq = document.getElementById("tab-btn-2");
+
+    const docSection = document.getElementById("doc");
+    const reqSection = document.getElementById("req");
+
+    radioDoc.addEventListener("change", () => {
+      if (radioDoc.checked) {
+        docSection.classList.add("active");
+        reqSection.classList.remove("active");
+      }
+    });
+
+    radioReq.addEventListener("change", () => {
+      if (radioReq.checked) {
+        reqSection.classList.add("active");
+        docSection.classList.remove("active");
+      }
+    });
+  </script>
+</body>
+</html>
