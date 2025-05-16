@@ -1,66 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kaspi.kz</title>
-  <link rel="stylesheet" href="./style.css" />
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="icon" type="image/png" href="/icon-192.png" />
-  <link rel="apple-touch-icon" href="/icon-192.png" />
-  <meta name="theme-color" content="#f14635" />
-  <style>
-    /* Просто для примера — скроем неактивный блок */
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .btntab {
-      display: flex;
-      justify-content: center;
-      margin-top: 10px;
-    }
-
-    .btntab label {
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <div class="container">
-    <!-- Header -->
     <div class="header">
       <div class="title">
         <img src="arrow.png" alt="" class="back-icon" />
         <h1 class="text-title">Удостоверение личности</h1>
       </div>
 
-      <!-- Tabs -->
       <div class="tab">
         <div class="btntab">
           <input type="radio" name="tab-btn" id="tab-btn-1" value="doc" checked />
-          <label for="tab-btn-1">
-            <p>Документ</p>
-          </label>
+          <label for="tab-btn-1">Документ</label>
 
           <input type="radio" name="tab-btn" id="tab-btn-2" value="req" />
-          <label for="tab-btn-2">
-            <p>Реквизиты</p>
-          </label>
+          <label for="tab-btn-2">Реквизиты</label>
         </div>
       </div>
     </div>
 
-    <!-- Tab Content -->
     <div id="doc" class="tab-content active">
       <div class="middle">
-        <div class="img-upload" style="height: 50vh;">
+        <div class="img-upload">
           <div class="input-img" id="upload-container">
             <input type="file" name="img-upl" id="idupload" class="input-file" accept="image/*" />
             <label for="idupload" id="upload-label"><span>Загрузить</span></label>
@@ -76,7 +43,7 @@
             Предъявить документ
           </button>
           <button id="btnftr2" class="share">
-            <img src="upload.png" alt="" class="img-upload" />
+            <img src="upload.png" alt="" />
             Отправить документ
           </button>
         </div>
@@ -86,32 +53,32 @@
     <div id="req" class="tab-content">
       <ul class="rekvizit">
         <li>
-          <span class="atritem">ФИО</span><br />
-          <input type="text" maxlength="" spellcheck="false" class="rekitem" />
+          <span class="atritem">ФИО</span>
+          <input type="text" maxlength="28" spellcheck="false" class="rekitem" />
           <img src="img/copy.png" alt="" />
         </li>
         <li>
-          <span class="atritem">ИИН</span><br />
+          <span class="atritem">ИИН</span>
           <input type="text" maxlength="12" class="rekitem" />
           <img src="img/copy.png" alt="" />
         </li>
         <li>
-          <span class="atritem">Дата рождения</span><br />
-          <input type="text" maxlength="10" class="rekitem" value="dasd" />
-          <img src="img/copy.png" alt="" />
-        </li>
-        <li>
-          <span class="atritem">Номер документа</span><br />
-          <input type="text" maxlength="9" class="rekitem" value="fsad" />
-          <img src="img/copy.png" alt="" />
-        </li>
-        <li>
-          <span class="atritem">Дата выдачи</span><br />
+          <span class="atritem">Дата рождения</span>
           <input type="text" maxlength="10" class="rekitem" />
           <img src="img/copy.png" alt="" />
         </li>
         <li>
-          <span class="atritem">Срок действия</span><br />
+          <span class="atritem">Номер документа</span>
+          <input type="text" maxlength="9" class="rekitem" />
+          <img src="img/copy.png" alt="" />
+        </li>
+        <li>
+          <span class="atritem">Дата выдачи</span>
+          <input type="text" maxlength="10" class="rekitem" />
+          <img src="img/copy.png" alt="" />
+        </li>
+        <li>
+          <span class="atritem">Срок действия</span>
           <input type="text" maxlength="10" class="rekitem" />
           <img src="img/copy.png" alt="" />
         </li>
@@ -119,50 +86,47 @@
     </div>
   </div>
 
-  <!-- JavaScript для переключения -->
-<script>
-  // Переключение табов (уже есть)
-  const radioDoc = document.getElementById("tab-btn-1");
-  const radioReq = document.getElementById("tab-btn-2");
+  <script>
+    const radioDoc = document.getElementById("tab-btn-1");
+    const radioReq = document.getElementById("tab-btn-2");
 
-  const docSection = document.getElementById("doc");
-  const reqSection = document.getElementById("req");
+    const docSection = document.getElementById("doc");
+    const reqSection = document.getElementById("req");
 
-  radioDoc.addEventListener("change", () => {
-    if (radioDoc.checked) {
-      docSection.classList.add("active");
-      reqSection.classList.remove("active");
-    }
-  });
+    radioDoc.addEventListener("change", () => {
+      if (radioDoc.checked) {
+        docSection.classList.add("active");
+        reqSection.classList.remove("active");
+      }
+    });
 
-  radioReq.addEventListener("change", () => {
-    if (radioReq.checked) {
-      reqSection.classList.add("active");
-      docSection.classList.remove("active");
-    }
-  });
+    radioReq.addEventListener("change", () => {
+      if (radioReq.checked) {
+        reqSection.classList.add("active");
+        docSection.classList.remove("active");
+      }
+    });
 
-  // Загрузка изображения и скрытие кнопки
-  const input = document.getElementById("idupload");
-  const label = document.getElementById("upload-label");
-  const preview = document.getElementById("preview");
+    const input = document.getElementById("idupload");
+    const label = document.getElementById("upload-label");
+    const preview = document.getElementById("preview");
 
-  input.addEventListener("change", function () {
-    const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = document.createElement("img");
-        img.src = e.target.result;
-        img.style.width = "100%";
-        img.style.borderRadius = "12px";
-        preview.appendChild(img);
-        label.style.display = "none"; // Скрыть кнопку "Загрузить"
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-</script>
+    input.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.style.width = "100%";
+          img.style.borderRadius = "12px";
+          preview.innerHTML = "";
+          preview.appendChild(img);
+          label.style.display = "none";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
 </body>
-
 </html>
