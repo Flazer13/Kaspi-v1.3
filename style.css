@@ -24,7 +24,8 @@ body,html {
     font-size: 14px;
     height: 100%;
     line-height: 1;
-    width: 100%
+    width: 100%;
+    background-color: #fff;
 }
 
 button,input,textarea {
@@ -141,9 +142,12 @@ div {
     padding: 18px
 }
 
-.img-upload,.middle {
-    height: 100%;
-    width: 100%
+.middle {
+    height: auto;
+}
+
+.img-upload {
+    height: auto;
 }
 
 .img-upload,.input-img {
@@ -186,9 +190,10 @@ div {
 }
 
 .rekvizit {
-    display: inline-block;
-    height: 120vh;
-    width: 100%
+    display: block;
+    padding-bottom: 20px; /* если нужен отступ снизу */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .rekvizit li {
@@ -259,7 +264,8 @@ div {
 }
 
 .btnfooter {
-    padding: 20px 17.5px 14.5px
+    padding: 20px 17.5px 14.5px;
+    padding-bottom: 26px;
 }
 
 .footer {

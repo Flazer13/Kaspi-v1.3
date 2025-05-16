@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Document</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaspi.kz</title>
   <link rel="stylesheet" href="./style.css" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
-  <meta name="theme-color" content="#f14635"/>
+  <meta name="theme-color" content="#f14635" />
   <style>
     /* Просто для примера — скроем неактивный блок */
     .tab-content {
@@ -30,6 +31,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <!-- Header -->
@@ -59,10 +61,11 @@
     <div id="doc" class="tab-content active">
       <div class="middle">
         <div class="img-upload" style="height: 50vh;">
-          <div class="input-img">
-            <input type="file" name="img-upl" id="idupload" class="input-file" />
-            <label for="idupload"><span>Загрузить</span></label>
+          <div class="input-img" id="upload-container">
+            <input type="file" name="img-upl" id="idupload" class="input-file" accept="image/*" />
+            <label for="idupload" id="upload-label"><span>Загрузить</span></label>
           </div>
+          <div id="preview"></div>
         </div>
       </div>
 
@@ -84,7 +87,7 @@
       <ul class="rekvizit">
         <li>
           <span class="atritem">ФИО</span><br />
-          <input type="text" maxlength="28" spellcheck="false" class="rekitem" />
+          <input type="text" maxlength="" spellcheck="false" class="rekitem" />
           <img src="img/copy.png" alt="" />
         </li>
         <li>
@@ -109,7 +112,7 @@
         </li>
         <li>
           <span class="atritem">Срок действия</span><br />
-          <span class="rekitem">25.10.2031</span>
+          <input type="text" maxlength="10" class="rekitem" />
           <img src="img/copy.png" alt="" />
         </li>
       </ul>
@@ -117,26 +120,49 @@
   </div>
 
   <!-- JavaScript для переключения -->
-  <script>
-    const radioDoc = document.getElementById("tab-btn-1");
-    const radioReq = document.getElementById("tab-btn-2");
+<script>
+  // Переключение табов (уже есть)
+  const radioDoc = document.getElementById("tab-btn-1");
+  const radioReq = document.getElementById("tab-btn-2");
 
-    const docSection = document.getElementById("doc");
-    const reqSection = document.getElementById("req");
+  const docSection = document.getElementById("doc");
+  const reqSection = document.getElementById("req");
 
-    radioDoc.addEventListener("change", () => {
-      if (radioDoc.checked) {
-        docSection.classList.add("active");
-        reqSection.classList.remove("active");
-      }
-    });
+  radioDoc.addEventListener("change", () => {
+    if (radioDoc.checked) {
+      docSection.classList.add("active");
+      reqSection.classList.remove("active");
+    }
+  });
 
-    radioReq.addEventListener("change", () => {
-      if (radioReq.checked) {
-        reqSection.classList.add("active");
-        docSection.classList.remove("active");
-      }
-    });
-  </script>
+  radioReq.addEventListener("change", () => {
+    if (radioReq.checked) {
+      reqSection.classList.add("active");
+      docSection.classList.remove("active");
+    }
+  });
+
+  // Загрузка изображения и скрытие кнопки
+  const input = document.getElementById("idupload");
+  const label = document.getElementById("upload-label");
+  const preview = document.getElementById("preview");
+
+  input.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.style.width = "100%";
+        img.style.borderRadius = "12px";
+        preview.appendChild(img);
+        label.style.display = "none"; // Скрыть кнопку "Загрузить"
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
 </body>
+
 </html>
