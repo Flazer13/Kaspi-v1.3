@@ -164,30 +164,6 @@ document.addEventListener("mousemove", (e) => {
   updateTransform();
 });
 
-// Touch events for mobile
-preview.addEventListener("touchstart", (e) => {
-  if (e.touches.length === 1) {
-    isDragging = true;
-    startX = e.touches[0].pageX - posX;
-    startY = e.touches[0].pageY - posY;
-  }
-});
-
-preview.addEventListener("touchend", () => {
-  isDragging = false;
-});
-
-preview.addEventListener("touchmove", (e) => {
-  if (!isDragging || e.touches.length !== 1) return;
-  posX = e.touches[0].pageX - startX;
-  posY = e.touches[0].pageY - startY;
-  updateTransform();
-});
-
-function updateTransform() {
-  preview.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
-}
-
 
   </script>
 </body>
