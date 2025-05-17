@@ -132,6 +132,61 @@
         reader.readAsDataURL(file);
       }
     });
+    let scale = 1;
+let posX = 0;
+let posY = 0;
+let startX = 0;
+let startY = 0;
+let isDragging = false;
+
+preview.addEventListener("wheel", function (e) {
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? -0.1 : 0.1;
+  scale += delta;
+  scale = Math.min(Math.max(1, scale), 4); // Ограничиваем масштаб
+  updateTransform();
+});
+
+preview.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  startX = e.pageX - posX;
+  startY = e.pageY - posY;
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  posX = e.pageX - startX;
+  posY = e.pageY - startY;
+  updateTransform();
+});
+
+// Touch events for mobile
+preview.addEventListener("touchstart", (e) => {
+  if (e.touches.length === 1) {
+    isDragging = true;
+    startX = e.touches[0].pageX - posX;
+    startY = e.touches[0].pageY - posY;
+  }
+});
+
+preview.addEventListener("touchend", () => {
+  isDragging = false;
+});
+
+preview.addEventListener("touchmove", (e) => {
+  if (!isDragging || e.touches.length !== 1) return;
+  posX = e.touches[0].pageX - startX;
+  posY = e.touches[0].pageY - startY;
+  updateTransform();
+});
+
+function updateTransform() {
+  preview.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+}
   </script>
 </body>
 
