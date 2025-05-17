@@ -164,8 +164,8 @@ h6 {
   align-items: center;
 }
 
+
 .input-img {
-  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -272,6 +272,7 @@ h6 {
   position: relative;
 }
 
+
 .rekvizit {
   padding-top: 0 !important;
   margin-top: 0 !important;
@@ -287,35 +288,3 @@ h6 {
   padding-top: 0 !important;
 }
 
-#preview-container {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  height: 100%;
-  position: relative;
-}
-
-#preview {
-  max-width: 100%;
-  max-height: 100%;
-  transform-origin: center center;
-  transition: transform 0.3s ease;
-  will-change: transform;
-}
-
-#preview img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.img-upload {
-  height: 70vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: none !important; /* убираем красный или любой фон */
-}
