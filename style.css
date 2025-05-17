@@ -36,6 +36,9 @@ body {
   background-color: #fff;
   font-family: Roboto, sans-serif;
   overflow-x: hidden;
+    background-color: #ffffff !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
 }
 
 button,
@@ -197,18 +200,19 @@ h6 {
   color: #fff;
 }
 
-#preview-wrapper {
+
+.zoom-container {
   overflow: hidden;
   touch-action: none;
-  height: 100%;
   width: 100%;
+  height: 100%;
   position: relative;
 }
 
-#preview {
+.zoom-content {
   transform-origin: center center;
+  transition: transform 0.1s ease;
   will-change: transform;
-  transition: transform 0.05s ease-out;
 }
 
 #document {

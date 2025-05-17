@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="theme-color" content="#ffffff" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Kaspi.kz</title>
   <link rel="stylesheet" href="style.css" />
@@ -37,6 +38,7 @@
           </div>
           <div class="preview-wrapper">
             <div id="preview"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -133,39 +135,13 @@
       }
     });
     let scale = 1;
-let posX = 0;
-let posY = 0;
-let startX = 0;
-let startY = 0;
-let isDragging = false;
-
-preview.addEventListener("wheel", function (e) {
-  e.preventDefault();
-  const delta = e.deltaY > 0 ? -0.1 : 0.1;
-  scale += delta;
-  scale = Math.min(Math.max(1, scale), 4); // Ограничиваем масштаб
-  updateTransform();
-});
-
-preview.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  startX = e.pageX - posX;
-  startY = e.pageY - posY;
-});
-
-document.addEventListener("mouseup", () => {
-  isDragging = false;
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (!isDragging) return;
-  posX = e.pageX - startX;
-  posY = e.pageY - startY;
-  updateTransform();
-});
-
-
+    let posX = 0;
+    let posY = 0;
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
   </script>
+
 </body>
 
 </html>
