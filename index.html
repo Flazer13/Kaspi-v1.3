@@ -2,10 +2,36 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
   <title>Kaspi.kz</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json">
+  <style>
+    #preview {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-height: 60vh;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    .zoomable-image {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 12px;
+      transform-origin: center center;
+      transition: transform 0.2s ease;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .copy-icon {
+      height: 18px !important;
+      width: 22px !important;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -56,32 +82,32 @@
         <li>
           <span class="atritem">ФИО</span>
           <input type="text" maxlength="28" spellcheck="false" class="rekitem" />
-          <img src="copy.png" alt="" />
+          <img src="copy.png" alt="" class="copy-icon" />
         </li>
         <li>
           <span class="atritem">ИИН</span>
           <input type="text" maxlength="12" class="rekitem" />
-          <img src="copy.png" alt="" />
+          <img src="copy.png" alt="" class="copy-icon" />
         </li>
         <li>
           <span class="atritem">Дата рождения</span>
           <input type="text" maxlength="10" class="rekitem" />
-          <img src="copy.png" alt="" />
+          <img src="copy.png" alt="" class="copy-icon" />
         </li>
         <li>
           <span class="atritem">Номер документа</span>
           <input type="text" maxlength="9" class="rekitem" />
-          <img src="copy.png" alt="" />
+          <img src="copy.png" alt="" class="copy-icon" />
         </li>
         <li>
           <span class="atritem">Дата выдачи</span>
           <input type="text" maxlength="10" class="rekitem" />
-          <img src="copy.png" alt="" />
+          <img src="copy.png" alt="" class="copy-icon" />
         </li>
         <li>
           <span class="atritem">Срок действия</span>
           <input type="text" maxlength="10" class="rekitem" />
-          <img src="copy.png" alt="" />
+          <img src="copy.png" alt="" class="copy-icon" />
         </li>
       </ul>
     </div>
@@ -119,14 +145,49 @@
         reader.onload = function (e) {
           const img = document.createElement("img");
           img.src = e.target.result;
-          img.style.width = "100%";
-          img.style.borderRadius = "12px";
+          img.className = "zoomable-image";
           preview.innerHTML = "";
           preview.appendChild(img);
           label.style.display = "none";
+
+          let startDist = 0;
+          let currentScale = 1;
+
+          img.addEventListener("touchstart", function (e) {
+            if (e.touches.length === 2) {
+              startDist = Math.hypot(
+                e.touches[0].pageX - e.touches[1].pageX,
+                e.touches[0].pageY - e.touches[1].pageY
+              );
+            }
+          });
+
+          img.addEventListener("touchmove", function (e) {
+            if (e.touches.length === 2) {
+              e.preventDefault();
+              const newDist = Math.hypot(
+                e.touches[0].pageX - e.touches[1].pageX,
+                e.touches[0].pageY - e.touches[1].pageY
+              );
+              let scaleChange = newDist / startDist;
+              currentScale = Math.min(Math.max(1, currentScale * scaleChange), 3);
+              img.style.transform = `scale(${currentScale})`;
+              startDist = newDist;
+            }
+          });
         };
         reader.readAsDataURL(file);
       }
+    });
+
+    let scale = 1;
+    preview.addEventListener("wheel", (e) => {
+      const img = preview.querySelector("img");
+      if (!img) return;
+      e.preventDefault();
+      scale += e.deltaY * -0.001;
+      scale = Math.min(Math.max(1, scale), 3);
+      img.style.transform = `scale(${scale})`;
     });
   </script>
 </body>
