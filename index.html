@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,9 +8,10 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="/icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
+
 <body>
   <div class="container">
     <div class="header">
@@ -36,112 +38,126 @@
             <input type="file" name="img-upl" id="idupload" class="input-file" accept="image/*" />
             <label for="idupload" id="upload-label"><span>Загрузить</span></label>
           </div>
-          <div id="preview"></div>
+          <div id="preview-container">
+            <div id="preview"></div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="btnfooter" id="docbtn">
+            <button id="btnftr1">
+              <img src="qr.png" alt="" />
+              Предъявить документ
+            </button>
+            <button id="btnftr2" class="share">
+              <img src="upload.png" alt="" />
+              Отправить документ
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="footer">
-        <div class="btnfooter" id="docbtn">
-          <button id="btnftr1">
-            <img src="qr.png" alt="" />
-            Предъявить документ
-          </button>
-          <button id="btnftr2" class="share">
-            <img src="upload.png" alt="" />
-            Отправить документ
-          </button>
-        </div>
+      <div id="req" class="tab-content">
+        <ul class="rekvizit">
+          <li>
+            <span class="atritem">ФИО</span>
+            <input type="text" maxlength="28" spellcheck="false" class="rekitem" />
+            <img src="copy.png" alt="" />
+          </li>
+          <li>
+            <span class="atritem">ИИН</span>
+            <input type="text" maxlength="12" class="rekitem" />
+            <img src="copy.png" alt="" />
+          </li>
+          <li>
+            <span class="atritem">Дата рождения</span>
+            <input type="text" maxlength="10" class="rekitem" />
+            <img src="copy.png" alt="" />
+          </li>
+          <li>
+            <span class="atritem">Номер документа</span>
+            <input type="text" maxlength="9" class="rekitem" />
+            <img src="copy.png" alt="" />
+          </li>
+          <li>
+            <span class="atritem">Дата выдачи</span>
+            <input type="text" maxlength="10" class="rekitem" />
+            <img src="copy.png" alt="" />
+          </li>
+          <li>
+            <span class="atritem">Срок действия</span>
+            <input type="text" maxlength="10" class="rekitem" />
+            <img src="copy.png" alt="" />
+          </li>
+        </ul>
       </div>
     </div>
 
-    <div id="req" class="tab-content">
-      <ul class="rekvizit">
-        <li>
-          <span class="atritem">ФИО</span>
-          <input type="text" maxlength="28" spellcheck="false" class="rekitem" />
-          <img src="copy.png" alt="" />
-        </li>
-        <li>
-          <span class="atritem">ИИН</span>
-          <input type="text" maxlength="12" class="rekitem" />
-          <img src="copy.png" alt="" />
-        </li>
-        <li>
-          <span class="atritem">Дата рождения</span>
-          <input type="text" maxlength="10" class="rekitem" />
-          <img src="copy.png" alt="" />
-        </li>
-        <li>
-          <span class="atritem">Номер документа</span>
-          <input type="text" maxlength="9" class="rekitem" />
-          <img src="copy.png" alt="" />
-        </li>
-        <li>
-          <span class="atritem">Дата выдачи</span>
-          <input type="text" maxlength="10" class="rekitem" />
-          <img src="copy.png" alt="" />
-        </li>
-        <li>
-          <span class="atritem">Срок действия</span>
-          <input type="text" maxlength="10" class="rekitem" />
-          <img src="copy.png" alt="" />
-        </li>
-      </ul>
-    </div>
-  </div>
+    <script>
+      const radioDoc = document.getElementById("tab-btn-1");
+      const radioReq = document.getElementById("tab-btn-2");
 
-  <script>
-    const radioDoc = document.getElementById("tab-btn-1");
-    const radioReq = document.getElementById("tab-btn-2");
+      const docSection = document.getElementById("doc");
+      const reqSection = document.getElementById("req");
 
-    const docSection = document.getElementById("doc");
-    const reqSection = document.getElementById("req");
-
-    radioDoc.addEventListener("change", () => {
-      if (radioDoc.checked) {
-        docSection.classList.add("active");
-        reqSection.classList.remove("active");
-      }
-    });
-
-    radioReq.addEventListener("change", () => {
-      if (radioReq.checked) {
-        reqSection.classList.add("active");
-        docSection.classList.remove("active");
-      }
-    });
-
-    const input = document.getElementById("idupload");
-    const label = document.getElementById("upload-label");
-    const preview = document.getElementById("preview");
-
-    input.addEventListener("change", function () {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = document.createElement("img");
-          img.src = e.target.result;
-          img.style.width = "100%";
-          img.style.borderRadius = "12px";
-          preview.innerHTML = "";
-          preview.appendChild(img);
-          label.style.display = "none";
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  </script>
-  <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      }, function(err) {
-        console.log('ServiceWorker registration failed: ', err);
+      radioDoc.addEventListener("change", () => {
+        if (radioDoc.checked) {
+          docSection.classList.add("active");
+          reqSection.classList.remove("active");
+        }
       });
-    });
-  }
-</script>
+
+      radioReq.addEventListener("change", () => {
+        if (radioReq.checked) {
+          reqSection.classList.add("active");
+          docSection.classList.remove("active");
+        }
+      });
+
+      const input = document.getElementById("idupload");
+      const label = document.getElementById("upload-label");
+      const preview = document.getElementById("preview");
+
+      input.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.width = "100%";
+            img.style.borderRadius = "12px";
+            preview.innerHTML = "";
+            preview.appendChild(img);
+            label.style.display = "none";
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function (err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+      let scale = 1;
+
+      preview.addEventListener('wheel', function (e) {
+        e.preventDefault();
+
+        const delta = e.deltaY > 0 ? -0.1 : 0.1;
+        scale += delta;
+        scale = Math.min(Math.max(1, scale), 5); // от 1x до 5x
+
+        preview.style.transform = `scale(${scale})`;
+      });
+    </script>
+
 </body>
+
 </html>
